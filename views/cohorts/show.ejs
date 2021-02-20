@@ -1,0 +1,168 @@
+<%- include('../partials/header') %>
+
+<!-- EDIT -->
+<div class="d-flex justify-content-end mt-5 mx-5">
+            
+    <a href='/cohorts/<%= cohort.id %>/edit'><button class="btn btn-link" >Edit</button></a>
+            
+<!-- DELETE -->
+<form action="/cohorts/<%=cohort.id%>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <button class="btn btn-link text-danger" type="submit">Delete</button>
+</form>   
+
+</div>
+
+<form class="d-flex flex-column bd-highlight mb-3" method="GET">
+    
+    <div class="card mt-2 mx-5 p-2">
+
+        <div class="card-body">
+            
+            <h5 class="card-title"><%= cohort.name %></h5>
+            <p class="card-text"><%= cohort.members %></p>
+        
+        <hr class="m-5">
+
+        <p>Method</p>
+
+<%if(method&&number){%>
+        <%if(method === 'team_count'){%>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="team_count" name="team_form" checked>
+                <label class="form-check-label">Team Count</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="per_team" name="team_form">
+                <label class="form-check-label">Number Per Team</label>
+            </div>
+        <%} else {%>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="team_count" name="team_form">
+                <label class="form-check-label">Team Count</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" value="per_team" name="team_form" checked>
+                <label class="form-check-label">Number Per Team</label>
+            </div>
+            <%}%>
+
+        <div class="d-grid gap-2 my-3">
+        <label>Quantity</label>
+        <input type="text" class="form-control" name="number" value="<%=number%>"> 
+        </div>
+
+        <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary" type="submit">Assign Teams</button>  
+        </div>
+
+        <div class="my-5">
+            <table class="table">
+                <thread>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Members</th>
+                    </tr>
+                </thread>
+                
+                <tbody>
+                        
+                <% const m = (cohort.members).split(', ').sort(function (a, b) { return 0.5-Math.random()});%>
+                <% if(method === 'per_team'){ %>
+                    
+                    <% const numPeople = Number(number)  %> 
+                    <% const numTeams = Math.floor(m.length/numPeople); %> 
+                    <% let counter = 1; %> 
+                    <%for(let i = 1; i<=numTeams; i++){%>
+                        <%if(m.length%numPeople>0){%>
+                            <tr> 
+                                <th scope="row"><%= counter %></th>
+                                <% let t = m.slice(0, (numPeople+1)).join(', ') %> 
+                                <td><%= t %></td>
+                                <% counter ++ %> 
+                                <% m.splice(0, (numPeople+1)) %> 
+                            </tr>
+                            <%} else {%>
+                                <% if( i !== numTeams) {%>
+                                <tr> 
+                                    <th scope="row"><%= counter %></th>
+                                    <% let t = m.slice(0, numPeople).join(', ') %> 
+                                    <td><%= t %></td>
+                                    <% counter ++ %> 
+                                    <% m.splice(0, numPeople) %> 
+                                </tr>
+                                <%} else {%>
+                                <tr>
+                                    <th scope="row"><%= counter %></th>
+                                    <% let t = m.join(', ') %> 
+                                    <td><%= t %></td>
+                                </tr>
+                                    <%}%>
+                            <%}%>
+                    <%}%>
+                <%} else {%>
+                    <% const numTeams = Number(number) %> 
+                    <% const numPeople = Math.floor(m.length/numTeams) %> 
+                    <% let counter = 1; %> 
+                    <%for(let i = 1; i<=numTeams; i++){%>
+                        <%if(m.length%numPeople>0){%>
+                            <tr> 
+                                <th scope="row"><%= counter %></th>
+                                <% let t = m.slice(0, (numPeople+1)).join(', ') %> 
+                                <td><%= t %></td>
+                                <% counter ++ %> 
+                                <% m.splice(0, (numPeople+1)) %> 
+                            </tr>
+                            <%} else {%>
+                                <% if( i !== numTeams) {%>
+                                <tr> 
+                                    <th scope="row"><%= counter %></th>
+                                    <% let t = m.slice(0, numPeople).join(', ') %> 
+                                    <td><%= t %></td>
+                                    <% counter ++ %> 
+                                    <% m.splice(0, numPeople) %> 
+                                </tr>
+                                <%} else {%>
+                                <tr>
+                                    <th scope="row"><%= counter %></th>
+                                    <% let t = m.join(', ') %> 
+                                    <td><%= t %></td>
+                                </tr>
+                                    <%}%>
+                                <%}%>
+                    <%}%>
+                    <%}%>
+                        
+                    </tbody>
+                </table>
+                
+                </div>
+<%} else {%>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" value="team_count" name="team_form">
+        <label class="form-check-label">Team Count</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" value="per_team" name="team_form">
+        <label class="form-check-label">Number Per Team</label>
+    </div>
+
+    <div class="d-grid gap-2 my-3">
+        <label>Quantity</label>
+        <input type="text" class="form-control" name="number"> 
+    </div>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-outline-primary" type="submit">Assign Teams</button>  
+    </div>
+<%}%>
+            
+
+        </div>
+    </div>  
+</form>
+
+
+
+
+<%- include('../partials/footer') %>

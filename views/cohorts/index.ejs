@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+
+   <% for(let cohort of cohorts) {%> 
+<div class="card m-5 p-2">
+
+    <div class="d-flex flex-row">
+<% if(cohort.logo) {%> 
+    <img 
+    src="<%=cohort.logo%>" 
+    class="rounded-circle img-thumbnail m-2" 
+    alt="cohort's logo"
+    width="80"
+    height="80">
+
+    <div class="d-flex align-items-center">
+     <h3 class="display-4"><%= cohort.name %></h3>   
+    </div>
+<%} else {%>
+    <div class="d-flex align-items-center m-2">
+        <h3 class="display-4"><%= cohort.name %></h3>   
+    </div>
+    <%}%>   
+    </div>
+
+    <div class="card-body">
+            <p class="lead"><%= cohort.members%></p>
+    </div> 
+    <div class="d-inline-flex m-3">
+     <a class="btn btn-primary" href="/cohorts/<%= cohort.id %>">Show Cohort</a>   
+    </div>
+    
+    
+</div>
+<%}%> 
+
+
+<%- include('../partials/footer') %>

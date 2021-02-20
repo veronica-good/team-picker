@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+<h1 class="my-5 display-4 mx-3">Edit Cohort</h1>
+
+<form action="/cohorts/<%=cohort.id%>" method="POST">
+    <input type="hidden" name="_method" value="PATCH">
+
+<!-- LOGO -->
+ <div class="p-2 bd-highlight mx-3">
+     <label for="cohort_logo" class="form-label">Logo URL</label>
+     <input type="url" 
+     class="form-control" 
+     name="cohort_logo"  
+     placeholder="https://i.imgut.com/hjhfg.jpg"
+     value="<%= cohort.logo %>">
+</div>  
+<!-- NAME -->
+ <div class="p-2 bd-highlight mx-3">
+    <label for="cohort_name" class="form-label">Cohort name</label>
+    <input type="text" class="form-control" name="cohort_name" placeholder="Pokemons" value="<%= cohort.name %>"> 
+</div>  
+<!-- MEMBERS -->
+ <div class="p-2 bd-highlight mx-3">
+    <label for="cohort_members" class="form-label">Members</label>
+    <textarea class="form-control" cols="60" rows="5" 
+    name="cohort_members" 
+    placeholder="John Snow, Sersei Lannister, etc"><%= cohort.members %></textarea>
+</div>  
+<!-- SUBMIT BUTTON -->
+<div class="d-flex flex-row-reverse p-2 bd-highlight mx-3">
+    <button type="submit" class="btn btn-outline-primary">Submit</button>
+</div>
+
+</form>
+
+<%- include('../partials/footer') %>

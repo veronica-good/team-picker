@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<!--form to add info to the database -->
+<form action="/cohorts" method="POST" class="d-flex flex-column bd-highlight my-3"> 
+<!-- LOGO -->
+ <div class="p-2 bd-highlight mx-3">
+     <label for="cohort_logo" class="form-label">Logo URL</label>
+     <input type="url" class="form-control" name="cohort_logo"  placeholder="https://i.imgut.com/hjhfg.jpg">
+</div>  
+<!-- NAME -->
+ <div class="p-2 bd-highlight mx-3">
+    <label for="cohort_name" class="form-label">Cohort name</label>
+    <input type="text" class="form-control" name="cohort_name" placeholder="Pokemons"> 
+</div>  
+<!-- MEMBERS -->
+ <div class="p-2 bd-highlight mx-3">
+    <label for="cohort_members" class="form-label">Members</label>
+    <textarea class="form-control" cols="60" rows="5" name="cohort_members" placeholder="John Snow, Sersei Lannister, etc"></textarea>
+</div>  
+<!-- SUBMIT BUTTON -->
+<div class="d-flex flex-row-reverse p-2 bd-highlight mx-3">
+    <button type="submit" class="btn btn-outline-primary">Submit</button>
+</div>
+
+</form>
+
+<%- include('../partials/footer') %>
